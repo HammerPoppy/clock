@@ -5,7 +5,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
       prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="sample.Controller">
+      fx:controller="sample.ClockController">
     <Circle centerX="150.0" centerY="150.0" fill="#ffffff00" radius="100.0" stroke="BLACK" strokeType="OUTSIDE"
             strokeWidth="5.0"/>
     <Circle centerX="150.0" centerY="150.0" fill="WHITE" radius="2.0" stroke="BLACK" strokeType="INSIDE"/>

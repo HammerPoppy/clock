@@ -48,7 +48,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Pane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Pane root = FXMLLoader.load(getClass().getResource("clock.fxml"));
 
         final double radius = 95;
         ArrayList<Point> degrees = new ArrayList<>();
