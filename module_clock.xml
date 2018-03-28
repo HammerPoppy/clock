@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_clock" default="compile.module.clock">
+  <dirname property="module.clock.basedir" file="${ant.file.module_clock}"/>
+  
+  <property name="module.jdk.home.clock" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.clock" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.clock" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.clock" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="clock.output.dir" value="${module.clock.basedir}/out/production/clock"/>
+  <property name="clock.testoutput.dir" value="${module.clock.basedir}/out/test/clock"/>
+  
+  <path id="clock.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="clock.module.production.classpath">
+    <path refid="${module.jdk.classpath.clock}"/>
+  </path>
+  
+  <path id="clock.runtime.production.module.classpath">
+    <pathelement location="${clock.output.dir}"/>
+  </path>
+  
+  <path id="clock.module.classpath">
+    <path refid="${module.jdk.classpath.clock}"/>
+    <pathelement location="${clock.output.dir}"/>
+  </path>
+  
+  <path id="clock.runtime.module.classpath">
+    <pathelement location="${clock.testoutput.dir}"/>
+    <pathelement location="${clock.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.clock">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.clock">
+    <patternset refid="excluded.from.module.clock"/>
+  </patternset>
+  
+  <path id="clock.module.sourcepath">
+    <dirset dir="${module.clock.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.clock" depends="compile.module.clock.production,compile.module.clock.tests" description="Compile module clock"/>
+  
+  <target name="compile.module.clock.production" depends="register.custom.compilers" description="Compile module clock; production classes">
+    <mkdir dir="${clock.output.dir}"/>
+    <javac2 destdir="${clock.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.clock}/javac">
+      <compilerarg line="${compiler.args.clock}"/>
+      <bootclasspath refid="clock.module.bootclasspath"/>
+      <classpath refid="clock.module.production.classpath"/>
+      <src refid="clock.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.clock"/>
+    </javac2>
+    
+    <copy todir="${clock.output.dir}">
+      <fileset dir="${module.clock.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.clock.tests" depends="register.custom.compilers,compile.module.clock.production" description="compile module clock; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.clock" description="cleanup module">
+    <delete dir="${clock.output.dir}"/>
+    <delete dir="${clock.testoutput.dir}"/>
+  </target>
+</project>
